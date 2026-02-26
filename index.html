@@ -3,187 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sello PRO — Journey Coordinador + CRM</title>
+<title>Sello PRO — Journey Coordinador + CRM v2</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,500;0,9..40,700;1,9..40,400&family=Playfair+Display:wght@600;700&display=swap');
-
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'DM Sans', sans-serif; background: #FAFDF7; color: #1B4332; min-height: 100vh; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: #FAFDF7;
-    color: #1B4332;
-    min-height: 100vh;
-  }
-
-  .header {
-    background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 50%, #40916C 100%);
-    padding: 36px 32px 24px;
-    color: white;
-  }
-  .header-inner { max-width: 1100px; margin: 0 auto; }
+  .header { background: linear-gradient(135deg, #1B4332 0%, #2D6A4F 50%, #40916C 100%); padding: 36px 32px 24px; color: white; }
+  .header-inner { max-width: 1200px; margin: 0 auto; }
   .header-tag { font-size: 11px; letter-spacing: 3px; text-transform: uppercase; opacity: 0.65; margin-bottom: 10px; }
-  .header h1 { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 700; letter-spacing: -0.5px; }
-  .header p { margin-top: 8px; font-size: 14px; opacity: 0.85; max-width: 720px; line-height: 1.6; }
+  .header h1 { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+  .header p { margin-top: 8px; font-size: 14px; opacity: 0.85; max-width: 750px; line-height: 1.6; }
+  .version-badge { display: inline-block; margin-top: 10px; background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 12px; font-size: 11px; }
 
-  .tabs-bar {
-    background: #1B4332;
-    display: flex;
-    gap: 0;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 24px;
-  }
-  .tab-btn {
-    padding: 13px 22px;
-    background: transparent;
-    color: rgba(255,255,255,0.65);
-    border: none;
-    border-radius: 10px 10px 0 0;
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 400;
-    font-family: 'DM Sans', sans-serif;
-    transition: all 0.2s;
-  }
-  .tab-btn.active {
-    background: #FAFDF7;
-    color: #1B4332;
-    font-weight: 700;
-  }
+  .tabs-bar { background: #1B4332; display: flex; gap: 0; max-width: 1200px; margin: 0 auto; padding: 0 24px; overflow-x: auto; }
+  .tab-btn { padding: 13px 18px; background: transparent; color: rgba(255,255,255,0.65); border: none; border-radius: 10px 10px 0 0; cursor: pointer; font-size: 12px; font-weight: 400; font-family: 'DM Sans', sans-serif; transition: all 0.2s; white-space: nowrap; }
+  .tab-btn.active { background: #FAFDF7; color: #1B4332; font-weight: 700; }
 
-  .content { max-width: 1100px; margin: 0 auto; padding: 28px 24px; }
-
+  .content { max-width: 1200px; margin: 0 auto; padding: 24px; }
   .tab-panel { display: none; }
   .tab-panel.active { display: block; }
 
-  /* Timeline */
-  .timeline-wrap { position: relative; margin-bottom: 32px; }
-  .timeline-line {
-    position: absolute; top: 30px; left: 24px; right: 24px;
-    height: 3px;
-    background: linear-gradient(90deg, #1B4332, #52B788, #1B4332);
-    border-radius: 2px; z-index: 0;
-  }
-  .timeline {
-    display: flex; justify-content: space-between;
-    position: relative; z-index: 1;
-    overflow-x: auto; padding-bottom: 10px;
-  }
-  .phase-dot {
-    display: flex; flex-direction: column; align-items: center;
-    cursor: pointer; min-width: 82px; flex: 1;
-    transition: transform 0.2s;
-  }
+  .timeline-wrap { position: relative; margin-bottom: 28px; }
+  .timeline-line { position: absolute; top: 28px; left: 20px; right: 20px; height: 3px; background: linear-gradient(90deg, #1B4332, #52B788, #1B4332); border-radius: 2px; z-index: 0; }
+  .timeline { display: flex; justify-content: space-between; position: relative; z-index: 1; overflow-x: auto; padding-bottom: 10px; gap: 2px; }
+  .phase-dot { display: flex; flex-direction: column; align-items: center; cursor: pointer; min-width: 72px; flex: 1; transition: transform 0.2s; }
   .phase-dot:hover { transform: scale(1.08); }
   .phase-dot.selected { transform: scale(1.08); }
-  .dot-circle {
-    width: 58px; height: 58px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 25px; border: 3px solid; transition: all 0.3s;
-  }
-  .phase-dot.selected .dot-circle { box-shadow: 0 0 0 4px rgba(116,198,157,0.4); }
-  .dot-label { font-size: 10px; font-weight: 600; text-align: center; margin-top: 8px; max-width: 92px; line-height: 1.3; }
-  .dot-status {
-    font-size: 9px; padding: 2px 7px; border-radius: 8px; margin-top: 4px; font-weight: 500;
-  }
+  .dot-circle { width: 52px; height: 52px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; border: 3px solid; transition: all 0.3s; }
+  .dot-label { font-size: 9px; font-weight: 600; text-align: center; margin-top: 6px; max-width: 80px; line-height: 1.3; }
+  .dot-status { font-size: 8px; padding: 2px 6px; border-radius: 8px; margin-top: 3px; font-weight: 500; }
   .dot-status.pre { color: #B85042; background: #FDECEA; }
   .dot-status.en { color: #2D6A4F; background: #D8F3DC; }
 
-  /* Detail panel */
-  .detail-panel {
-    background: white; border-radius: 14px; overflow: hidden;
-    box-shadow: 0 4px 24px rgba(27,67,50,0.1);
-    border: 2px solid; animation: fadeUp 0.3s ease;
-  }
+  .detail-panel { background: white; border-radius: 14px; overflow: hidden; box-shadow: 0 4px 24px rgba(27,67,50,0.1); border: 2px solid; animation: fadeUp 0.3s ease; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  .detail-header {
-    color: white; padding: 18px 26px;
-    display: flex; align-items: center; gap: 14;
-  }
-  .detail-header span.icon { font-size: 34px; }
-  .detail-header h2 { font-family: 'Playfair Display', serif; font-size: 21px; }
-  .detail-header p { margin-top: 4px; opacity: 0.85; font-size: 13px; }
+  .detail-header { color: white; padding: 16px 24px; display: flex; align-items: center; gap: 14; }
+  .detail-header span.icon { font-size: 30px; }
+  .detail-header h2 { font-family: 'Playfair Display', serif; font-size: 20px; }
+  .detail-header p { margin-top: 3px; opacity: 0.85; font-size: 12px; }
   .detail-grid { display: grid; grid-template-columns: 1fr 1fr; }
-  .detail-left { padding: 24px; border-right: 1px solid #E8F5E9; }
-  .detail-right { padding: 24px; }
-  .detail-section-title { margin-bottom: 12px; font-size: 14px; font-weight: 700; display: flex; align-items: center; gap: 6; }
-  .action-item { display: flex; gap: 8; margin-bottom: 8px; font-size: 13px; line-height: 1.55; color: #2D3748; }
-  .action-bullet { font-weight: 700; flex-shrink: 0; font-size: 11px; margin-top: 3px; }
-  .integration-note { margin-top: 14px; padding: 9px 14px; background: #FFF3E0; border-radius: 8px; font-size: 12px; color: #E65100; }
-  .crm-tags { display: flex; flex-wrap: wrap; gap: 6; margin-bottom: 20px; }
-  .crm-tag { padding: 4px 11px; border-radius: 16px; font-size: 11px; font-weight: 600; }
-  .platform-link {
-    background: #F0FFF4; border-radius: 8px; padding: 13px;
-    font-size: 12px; color: #2D6A4F; border: 1px dashed #74C69D; line-height: 1.6;
-  }
-  .empty-hint { text-align: center; padding: 44px; color: #74C69D; font-size: 14px; }
+  .detail-left { padding: 20px; border-right: 1px solid #E8F5E9; }
+  .detail-right { padding: 20px; }
+  .detail-section-title { margin-bottom: 10px; font-size: 13px; font-weight: 700; display: flex; align-items: center; gap: 6; }
+  .action-item { display: flex; gap: 8; margin-bottom: 7px; font-size: 12px; line-height: 1.5; color: #2D3748; }
+  .action-bullet { font-weight: 700; flex-shrink: 0; font-size: 10px; margin-top: 3px; }
+  .integration-note { margin-top: 12px; padding: 8px 12px; background: #FFF3E0; border-radius: 8px; font-size: 11px; color: #E65100; }
+  .design-note { margin-top: 12px; padding: 8px 12px; background: #E8EAF6; border-radius: 8px; font-size: 11px; color: #283593; }
+  .crm-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 16px; }
+  .crm-tag { padding: 3px 10px; border-radius: 14px; font-size: 10px; font-weight: 600; }
+  .platform-link { background: #F0FFF4; border-radius: 8px; padding: 12px; font-size: 11px; color: #2D6A4F; border: 1px dashed #74C69D; line-height: 1.6; }
+  .empty-hint { text-align: center; padding: 40px; color: #74C69D; font-size: 14px; }
 
-  /* CRM Tab */
-  .crm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .crm-card {
-    background: white; border-radius: 12px; padding: 20px;
-    border: 1px solid #D8F3DC; box-shadow: 0 2px 8px rgba(27,67,50,0.06);
-  }
-  .crm-card-head { display: flex; align-items: center; gap: 10; margin-bottom: 12px; }
-  .crm-card-head span.ic { font-size: 28px; }
-  .crm-card-head h3 { font-size: 16px; color: #1B4332; }
-  .crm-card-head p { margin-top: 2px; font-size: 12px; color: #718096; }
+  .crm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .crm-card { background: white; border-radius: 12px; padding: 18px; border: 1px solid #D8F3DC; box-shadow: 0 2px 8px rgba(27,67,50,0.06); }
+  .crm-card-head { display: flex; align-items: center; gap: 10; margin-bottom: 10px; }
+  .crm-card-head span.ic { font-size: 26px; }
+  .crm-card-head h3 { font-size: 15px; color: #1B4332; }
+  .crm-card-head p { margin-top: 2px; font-size: 11px; color: #718096; }
   .crm-col-tags { display: flex; flex-wrap: wrap; gap: 4px; }
-  .crm-col-tag {
-    background: #F0FFF4; color: #2D6A4F; padding: 3px 8px;
-    border-radius: 6px; font-size: 10px; font-weight: 600; border: 1px solid #B7E4C7;
-  }
-  .flow-bar {
-    margin-top: 24px; background: white; border-radius: 12px; padding: 24px;
-    border: 1px solid #D8F3DC;
-  }
-  .flow-bar h3 { margin-bottom: 16px; font-size: 16px; color: #1B4332; }
-  .flow-steps { display: flex; align-items: center; justify-content: center; gap: 8px; flex-wrap: wrap; }
-  .flow-step {
-    padding: 6px 13px; border-radius: 8px; font-size: 11px; font-weight: 600; white-space: nowrap; border: 1px solid;
-  }
-  .flow-arrow { font-size: 18px; color: #718096; }
+  .crm-col-tag { background: #F0FFF4; color: #2D6A4F; padding: 3px 8px; border-radius: 6px; font-size: 10px; font-weight: 600; border: 1px solid #B7E4C7; }
 
-  /* Integration Tab */
-  .intro-text { font-size: 14px; color: #4A5568; margin-bottom: 24px; line-height: 1.6; }
-  .integration-grid { display: grid; grid-template-columns: 1fr 2fr 1fr; gap: 16px; align-items: start; }
-  .mod-box { border-radius: 12px; padding: 20px; border: 2px solid; }
-  .mod-box h3 { margin-bottom: 12px; font-size: 15px; }
-  .mod-item { display: flex; gap: 6px; margin-bottom: 5px; font-size: 12px; line-height: 1.6; }
-  .mod-badge { margin-top: 12px; padding: 6px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; }
-  .clara-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .clara-card {
-    background: white; border-radius: 8px; padding: 8px 10px; border: 1px solid #C8E6C9;
-  }
-  .clara-card .title { font-size: 12px; font-weight: 700; color: #1B5E20; }
-  .clara-card .desc { font-size: 10px; color: #4CAF50; margin-top: 2px; }
-  .clara-note {
-    margin-top: 12px; padding: 6px 10px; background: #C8E6C9;
-    border-radius: 6px; font-size: 10px; color: #1B5E20; font-weight: 600; text-align: center;
-  }
-  .integrations-box {
-    margin-top: 24px; background: white; border-radius: 12px; padding: 20px;
-    border: 1px solid #D8F3DC;
-  }
-  .integrations-box h3 { margin-bottom: 16px; font-size: 15px; color: #1B4332; }
-  .int-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
-  .int-card {
-    padding: 14px; background: #F0FFF4; border-radius: 8px; border: 1px solid #D8F3DC;
-  }
-  .int-card .ic { font-size: 24px; margin-bottom: 6px; }
-  .int-card .ttl { font-size: 12px; font-weight: 700; color: #1B4332; margin-bottom: 4px; }
-  .int-card .dsc { font-size: 11px; color: #4A5568; line-height: 1.5; }
+  .flow-bar { margin-top: 20px; background: white; border-radius: 12px; padding: 22px; border: 1px solid #D8F3DC; }
+  .flow-bar h3 { margin-bottom: 14px; font-size: 15px; color: #1B4332; }
+  .flow-steps { display: flex; align-items: center; justify-content: center; gap: 6px; flex-wrap: wrap; }
+  .flow-step { padding: 5px 11px; border-radius: 8px; font-size: 10px; font-weight: 600; white-space: nowrap; border: 1px solid; }
+  .flow-arrow { font-size: 16px; color: #718096; }
 
-  @media (max-width: 768px) {
+  .intro-text { font-size: 13px; color: #4A5568; margin-bottom: 22px; line-height: 1.6; }
+  .integration-grid { display: grid; grid-template-columns: 1fr 2.2fr 1fr; gap: 14px; align-items: start; }
+  .mod-box { border-radius: 12px; padding: 18px; border: 2px solid; }
+  .mod-box h3 { margin-bottom: 10px; font-size: 14px; }
+  .mod-item { display: flex; gap: 6px; margin-bottom: 4px; font-size: 11px; line-height: 1.6; }
+  .mod-badge { margin-top: 10px; padding: 5px 10px; border-radius: 6px; font-size: 10px; font-weight: 600; }
+  .clara-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .clara-card { background: white; border-radius: 8px; padding: 7px 10px; border: 1px solid #C8E6C9; }
+  .clara-card .title { font-size: 11px; font-weight: 700; color: #1B5E20; }
+  .clara-card .desc { font-size: 9px; color: #4CAF50; margin-top: 2px; }
+  .clara-note { margin-top: 10px; padding: 5px 10px; background: #C8E6C9; border-radius: 6px; font-size: 9px; color: #1B5E20; font-weight: 600; text-align: center; }
+  .integrations-box { margin-top: 20px; background: white; border-radius: 12px; padding: 20px; border: 1px solid #D8F3DC; }
+  .integrations-box h3 { margin-bottom: 14px; font-size: 15px; color: #1B4332; }
+  .int-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+  .int-card { padding: 12px; background: #F0FFF4; border-radius: 8px; border: 1px solid #D8F3DC; }
+  .int-card .ic { font-size: 22px; margin-bottom: 5px; }
+  .int-card .ttl { font-size: 11px; font-weight: 700; color: #1B4332; margin-bottom: 3px; }
+  .int-card .dsc { font-size: 10px; color: #4A5568; line-height: 1.5; }
+
+  /* Lifecycle tab */
+  .lifecycle-box { background: white; border-radius: 12px; padding: 24px; border: 1px solid #D8F3DC; margin-bottom: 16px; }
+  .lifecycle-box h3 { font-size: 16px; color: #1B4332; margin-bottom: 14px; }
+  .state-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
+  .state-card { border-radius: 10px; padding: 16px; text-align: center; border: 2px solid; }
+  .state-card .emoji { font-size: 32px; margin-bottom: 6px; }
+  .state-card .name { font-size: 14px; font-weight: 700; }
+  .state-card .desc { font-size: 10px; margin-top: 4px; line-height: 1.4; }
+  .lifecycle-timeline { display: flex; align-items: center; justify-content: center; gap: 4px; flex-wrap: wrap; padding: 12px 0; }
+  .lt-step { padding: 6px 10px; border-radius: 8px; font-size: 10px; font-weight: 600; border: 1px solid; }
+
+  /* Admin phase */
+  .admin-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 10px; }
+  .admin-card { background: #FFFDE7; border: 1px solid #FFE082; border-radius: 8px; padding: 10px; }
+  .admin-card .doc-title { font-size: 12px; font-weight: 700; color: #F57F17; margin-bottom: 6px; }
+  .admin-card .doc-fields { font-size: 10px; color: #5D4037; line-height: 1.5; }
+
+  @media (max-width: 900px) {
     .detail-grid { grid-template-columns: 1fr; }
     .detail-left { border-right: none; border-bottom: 1px solid #E8F5E9; }
-    .crm-grid { grid-template-columns: 1fr; }
+    .crm-grid, .state-cards { grid-template-columns: 1fr 1fr; }
     .integration-grid { grid-template-columns: 1fr; }
-    .int-grid { grid-template-columns: 1fr; }
-    .timeline { gap: 4px; }
-    .phase-dot { min-width: 68px; }
-    .dot-circle { width: 46px; height: 46px; font-size: 20px; }
+    .int-grid { grid-template-columns: 1fr 1fr; }
+    .admin-grid { grid-template-columns: 1fr 1fr; }
+    .phase-dot { min-width: 62px; }
+    .dot-circle { width: 44px; height: 44px; font-size: 18px; }
+  }
+  @media (max-width: 600px) {
+    .crm-grid, .state-cards, .int-grid, .admin-grid { grid-template-columns: 1fr; }
   }
 </style>
 </head>
@@ -193,14 +127,16 @@
   <div class="header-inner">
     <div class="header-tag">Sello PRO · CChC · Plataforma Digital</div>
     <h1>Journey Map del Coordinador + CRM Interno</h1>
-    <p>Flujo completo desde la captación comercial hasta el cierre del proceso de certificación, integrado con los módulos de Empresa ("CLARA") y Verificación/Auditoría ("NORMAN").</p>
+    <p>Flujo completo desde la captación comercial hasta el cierre de certificación y ciclo de renovaciones, integrado con los módulos "CLARA" (Empresa) y "NORMAN" (Verificación/Auditoría).</p>
+    <span class="version-badge">v3.1 — Incluye Familias de Criterios (58 criterios / 4 ámbitos) + 12 tipos de cuestionario + API para proyectos internos CChC</span>
   </div>
 </div>
 
 <div class="tabs-bar">
-  <button class="tab-btn active" onclick="switchTab('journey')">🗺️ Journey del Coordinador</button>
-  <button class="tab-btn" onclick="switchTab('crm')">💼 Vistas CRM</button>
-  <button class="tab-btn" onclick="switchTab('integration')">🔗 Integración Plataforma</button>
+  <button class="tab-btn active" data-tab="journey">🗺️ Journey Coordinador</button>
+  <button class="tab-btn" data-tab="crm">💼 Vistas CRM</button>
+  <button class="tab-btn" data-tab="integration">🔗 Integración</button>
+  <button class="tab-btn" data-tab="lifecycle">🔄 Ciclo de Vida</button>
 </div>
 
 <div class="content">
@@ -212,13 +148,13 @@
       <div class="timeline" id="timeline"></div>
     </div>
     <div id="detail-container">
-      <div class="empty-hint">☝️ Haz clic en una etapa del timeline para ver el detalle de acciones y campos CRM</div>
+      <div class="empty-hint">☝️ Haz clic en una etapa del timeline para ver el detalle</div>
     </div>
   </div>
 
   <!-- CRM TAB -->
   <div id="tab-crm" class="tab-panel">
-    <p class="intro-text">El CRM interno funciona como la capa de gestión del coordinador CChC sobre toda la operación. Se alimenta automáticamente de las acciones en los módulos de Empresa y Verificación, y agrega la gestión comercial pre-plataforma.</p>
+    <p class="intro-text">El CRM interno es la capa de gestión del coordinador CChC. Se alimenta de los módulos de Empresa y Verificación, y agrega la gestión comercial + administrativa pre-plataforma. <strong>Bitbang</strong> tiene un perfil diferenciado con acceso a monitoreo de tiempos y envío de recordatorios.</p>
     <div class="crm-grid" id="crm-grid"></div>
     <div class="flow-bar">
       <h3>🔄 Flujo CRM → Plataforma → CRM</h3>
@@ -228,31 +164,193 @@
 
   <!-- INTEGRATION TAB -->
   <div id="tab-integration" class="tab-panel">
-    <p class="intro-text">Así se conecta el CRM del coordinador con los módulos existentes de la plataforma: Módulo Empresa ("CLARA") y Módulo Verificación/Auditoría ("NORMAN").</p>
+    <p class="intro-text">Conexión entre el CRM del coordinador y los módulos existentes: Empresa ("CLARA") y Verificación/Auditoría ("NORMAN"). Bitbang opera como representante de CChC con perfil y permisos diferenciados.</p>
     <div class="integration-grid">
-      <!-- CRM Coordinador -->
       <div class="mod-box" style="background:#FFF8E1;border-color:#FFB74D;">
         <h3 style="color:#E65100;">💼 CRM Coordinador</h3>
         <div id="crm-items"></div>
         <div class="mod-badge" style="background:#FFF3E0;color:#BF360C;">Solo CChC (admin)</div>
       </div>
-      <!-- CLARA -->
       <div class="mod-box" style="background:#E8F5E9;border-color:#4CAF50;">
         <h3 style="color:#1B5E20;">🏢 Módulo Empresa — "CLARA"</h3>
-        <p style="margin-bottom:12px;font-size:11px;color:#2E7D32;">Vista compartida: Empresa + Asesor (Nexos) + CChC</p>
+        <p style="margin-bottom:10px;font-size:10px;color:#2E7D32;">Vista compartida: Empresa + Asesor (Nexos) + CChC + Bitbang (solo avance)</p>
         <div class="clara-grid" id="clara-grid"></div>
-        <div class="clara-note">(*) Criterios n/a: 1-5 estrellas + "n/a" con justificación</div>
+        <div class="clara-note">(*) Criterios n/a: 1-5 estrellas + "n/a" con justificación · Seguimientos como registros individuales</div>
       </div>
-      <!-- NORMAN -->
       <div class="mod-box" style="background:#E3F2FD;border-color:#1976D2;">
         <h3 style="color:#0D47A1;">✅ Módulo Verificación — "NORMAN"</h3>
         <div id="norman-items"></div>
-        <div class="mod-badge" style="background:#BBDEFB;color:#0D47A1;">CChC + Asesores</div>
+        <div class="mod-badge" style="background:#BBDEFB;color:#0D47A1;">CChC + Asesores + Consultor externo</div>
       </div>
     </div>
     <div class="integrations-box">
+      <h3>🧬 Familias de Criterios (Estructura del Estándar)</h3>
+      <p style="font-size:12px;color:#4A5568;line-height:1.7;margin-bottom:14px;">Los cuestionarios comparten una estructura común. Esto es clave para el modelo de datos:</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px;">
+        <div style="text-align:center;padding:14px;background:#E8F5E9;border-radius:10px;border:1px solid #A5D6A7;">
+          <div style="font-size:28px;font-weight:700;color:#1B4332;">~58</div>
+          <div style="font-size:10px;color:#2D6A4F;font-weight:600;">Criterios únicos</div>
+        </div>
+        <div style="text-align:center;padding:14px;background:#E8F5E9;border-radius:10px;border:1px solid #A5D6A7;">
+          <div style="font-size:28px;font-weight:700;color:#1B4332;">4</div>
+          <div style="font-size:10px;color:#2D6A4F;font-weight:600;">Ámbitos / Pilares</div>
+        </div>
+        <div style="text-align:center;padding:14px;background:#E8F5E9;border-radius:10px;border:1px solid #A5D6A7;">
+          <div style="font-size:28px;font-weight:700;color:#1B4332;">12</div>
+          <div style="font-size:10px;color:#2D6A4F;font-weight:600;">Tipos de cuestionario</div>
+        </div>
+        <div style="text-align:center;padding:14px;background:#E8F5E9;border-radius:10px;border:1px solid #A5D6A7;">
+          <div style="font-size:28px;font-weight:700;color:#1B4332;">1-5 ⭐</div>
+          <div style="font-size:10px;color:#2D6A4F;font-weight:600;">Niveles por criterio</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div style="background:#F0FFF4;border:1px solid #C8E6C9;border-radius:8px;padding:12px;">
+          <div style="font-size:12px;font-weight:700;color:#1B5E20;margin-bottom:6px;">✅ Lo que VARÍA entre tipos de empresa:</div>
+          <div style="font-size:11px;color:#2E7D32;line-height:1.6;">• Descripción específica del criterio (adaptada al rubro/tamaño)<br>• Exigencias por nivel de estrella (1 a 5)<br>• Aplicabilidad (un criterio puede no aplicar a ciertos tipos)</div>
+        </div>
+        <div style="background:#F0FFF4;border:1px solid #C8E6C9;border-radius:8px;padding:12px;">
+          <div style="font-size:12px;font-weight:700;color:#1B5E20;margin-bottom:6px;">🔒 Lo que NO varía:</div>
+          <div style="font-size:11px;color:#2E7D32;line-height:1.6;">• El concepto de evaluación subyacente (la "familia")<br>• La agrupación por ámbitos/pilares<br>• La escala 1-5 estrellas + n/a</div>
+        </div>
+      </div>
+      <div style="margin-top:12px;padding:10px;background:#FFF3E0;border-radius:8px;border:1px solid #FFCC80;">
+        <div style="font-size:11px;color:#E65100;line-height:1.6;">⚠️ <strong>Implicancia para desarrollo:</strong> La BD debe modelar criterio base (familia) con variantes por tipo de empresa. Los 12 cuestionarios se generan desde la misma estructura, NO son formularios independientes. Modificar exigencias de un tipo NO debe afectar a los demás.</div>
+      </div>
+    </div>
+
+    <div class="integrations-box">
+      <h3>🔌 Proyectos Futuros de Integración vía API</h3>
+      <p style="font-size:12px;color:#4A5568;line-height:1.6;margin-bottom:12px;">La CChC tiene proyectos internos que consumirán datos de esta plataforma (read-only). La API debe exponerlos sin depender del proveedor.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <div style="padding:10px;background:#E3F2FD;border-radius:8px;border:1px solid #90CAF9;">
+          <div style="font-size:11px;font-weight:700;color:#0D47A1;">📊 Dashboards estratégicos CChC</div>
+          <div style="font-size:10px;color:#1565C0;margin-top:3px;">Empresas certificadas y sus estados</div>
+        </div>
+        <div style="padding:10px;background:#E3F2FD;border-radius:8px;border:1px solid #90CAF9;">
+          <div style="font-size:11px;font-weight:700;color:#0D47A1;">📈 Benchmarking sectorial</div>
+          <div style="font-size:10px;color:#1565C0;margin-top:3px;">Resultados por criterio y empresa</div>
+        </div>
+        <div style="padding:10px;background:#E3F2FD;border-radius:8px;border:1px solid #90CAF9;">
+          <div style="font-size:11px;font-weight:700;color:#0D47A1;">📚 Estudios longitudinales</div>
+          <div style="font-size:10px;color:#1565C0;margin-top:3px;">Histórico de certificaciones y auditorías</div>
+        </div>
+        <div style="padding:10px;background:#E3F2FD;border-radius:8px;border:1px solid #90CAF9;">
+          <div style="font-size:11px;font-weight:700;color:#0D47A1;">🔗 Taxonomías y estándares</div>
+          <div style="font-size:10px;color:#1565C0;margin-top:3px;">Catálogo de criterios, familias y ámbitos</div>
+        </div>
+      </div>
+      <div style="margin-top:8px;font-size:10px;color:#718096;">Auth: API key / token de servicio configurable por CChC · Documentación: OpenAPI/Swagger</div>
+    </div>
+
+    <div class="integrations-box">
       <h3>⚡ Integraciones Clave</h3>
       <div class="int-grid" id="int-grid"></div>
+    </div>
+  </div>
+
+  <!-- LIFECYCLE TAB -->
+  <div id="tab-lifecycle" class="tab-panel">
+    <p class="intro-text">El Sello PRO tiene un ciclo de vida de 3 años: implementación (~10 meses) → Verificación 0 → Sello → Auditorías anuales → Renovación (cada 2 años). La plataforma debe soportar los 4 estados macro y la gestión de renovaciones.</p>
+
+    <div class="lifecycle-box">
+      <h3>📊 Los 4 Estados Macro</h3>
+      <div class="state-cards" id="state-cards"></div>
+    </div>
+
+    <div class="lifecycle-box">
+      <h3>🗓️ Timeline del Ciclo de Vida (3 años)</h3>
+      <div class="lifecycle-timeline" id="lifecycle-tl"></div>
+    </div>
+
+    <div class="lifecycle-box">
+      <h3>🔁 Flujo de Estados Detallado</h3>
+      <div class="lifecycle-timeline" id="state-flow"></div>
+    </div>
+
+    <div class="lifecycle-box">
+      <h3>📦 Migración de Datos Históricos</h3>
+      <p style="font-size:12px;color:#4A5568;line-height:1.6;">+350 empresas históricas deben migrarse al sistema. Datos origen en hojas de cálculo y documentos. Las empresas históricas aparecerán como "LOGRADO" o "RENOVACIÓN" según corresponda. El proveedor debe incluir este esfuerzo en su propuesta.</p>
+    </div>
+
+    <div class="lifecycle-box">
+      <h3>⚙️ Escalabilidad</h3>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;">
+        <div style="text-align:center;padding:12px;background:#F0FFF4;border-radius:8px;">
+          <div style="font-size:24px;font-weight:700;color:#1B4332;">5-6</div>
+          <div style="font-size:10px;color:#4A5568;">Asesores simultáneos</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:#F0FFF4;border-radius:8px;">
+          <div style="font-size:24px;font-weight:700;color:#1B4332;">3-4</div>
+          <div style="font-size:10px;color:#4A5568;">Equipo CChC</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:#F0FFF4;border-radius:8px;">
+          <div style="font-size:24px;font-weight:700;color:#1B4332;">10-15</div>
+          <div style="font-size:10px;color:#4A5568;">Empresas activas</div>
+        </div>
+        <div style="text-align:center;padding:12px;background:#F0FFF4;border-radius:8px;">
+          <div style="font-size:24px;font-weight:700;color:#2D6A4F;">~25</div>
+          <div style="font-size:10px;color:#4A5568;">Total concurrentes</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lifecycle-box">
+      <h3>🖥️ Ambientes y Compatibilidad</h3>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div>
+          <div style="font-size:12px;font-weight:700;color:#1B4332;margin-bottom:8px;">Ambientes requeridos</div>
+          <div style="display:flex;gap:8px;">
+            <div style="flex:1;text-align:center;padding:10px;background:#FFF3E0;border-radius:8px;border:1px solid #FFCC80;">
+              <div style="font-size:18px;">🔧</div>
+              <div style="font-size:11px;font-weight:700;color:#E65100;">Desarrollo</div>
+              <div style="font-size:9px;color:#BF360C;">Solo equipo dev</div>
+            </div>
+            <div style="flex:1;text-align:center;padding:10px;background:#E3F2FD;border-radius:8px;border:1px solid #90CAF9;">
+              <div style="font-size:18px;">🧪</div>
+              <div style="font-size:11px;font-weight:700;color:#1565C0;">Staging / QA</div>
+              <div style="font-size:9px;color:#0D47A1;">Pruebas CChC</div>
+            </div>
+            <div style="flex:1;text-align:center;padding:10px;background:#E8F5E9;border-radius:8px;border:1px solid #A5D6A7;">
+              <div style="font-size:18px;">🚀</div>
+              <div style="font-size:11px;font-weight:700;color:#2E7D32;">Producción</div>
+              <div style="font-size:9px;color:#1B5E20;">Usuarios reales</div>
+            </div>
+          </div>
+          <div style="margin-top:6px;font-size:9px;color:#C62828;background:#FDECEA;padding:4px 8px;border-radius:4px;">⚠️ Datos de producción NUNCA en dev/staging sin anonimizar</div>
+        </div>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:#1B4332;margin-bottom:8px;">Compatibilidad</div>
+          <div style="font-size:11px;color:#4A5568;line-height:1.8;">
+            🌐 <strong>Idioma:</strong> Español (Chile)<br>
+            🖥️ <strong>Navegadores:</strong> Chrome, Edge, Firefox, Safari (últimas 2 versiones)<br>
+            📱 <strong>Responsive:</strong> Desktop (1024px+) y Tablet (768px+). Móvil deseable, no crítico.<br>
+            📐 <strong>Resolución mín:</strong> 1024 × 768 px
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lifecycle-box">
+      <h3>🛡️ Continuidad Operativa</h3>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;">
+        <div style="text-align:center;padding:14px;background:#E3F2FD;border-radius:8px;border:1px solid #90CAF9;">
+          <div style="font-size:11px;color:#718096;">Disponibilidad</div>
+          <div style="font-size:22px;font-weight:700;color:#1565C0;">99.5%</div>
+          <div style="font-size:9px;color:#718096;">mensual</div>
+        </div>
+        <div style="text-align:center;padding:14px;background:#FFF3E0;border-radius:8px;border:1px solid #FFCC80;">
+          <div style="font-size:11px;color:#718096;">RPO</div>
+          <div style="font-size:22px;font-weight:700;color:#E65100;">&lt; 24h</div>
+          <div style="font-size:9px;color:#718096;">recovery point</div>
+        </div>
+        <div style="text-align:center;padding:14px;background:#FDECEA;border-radius:8px;border:1px solid #EF9A9A;">
+          <div style="font-size:11px;color:#718096;">RTO</div>
+          <div style="font-size:22px;font-weight:700;color:#C62828;">&lt; 4h</div>
+          <div style="font-size:9px;color:#718096;">recovery time</div>
+        </div>
+      </div>
+      <div style="margin-top:10px;font-size:11px;color:#4A5568;line-height:1.6;">Backups diarios cifrados (30 días retención) · Redundancia en BD y almacenamiento · Exportación masiva disponible si se cambia de proveedor (SQL dump + archivos por empresa)</div>
     </div>
   </div>
 
@@ -262,147 +360,181 @@
 const phases = [
   {
     id:"captacion", label:"Captación", icon:"🎯", color:"#1B4332", light:"#D8F3DC",
-    description:"Gestión comercial y primer contacto",
+    description:"Gestión comercial, seguimiento y cierre de venta",
     actions:[
-      "Identificar empresas potenciales (socios CChC, eventos, referidos)",
-      "Registrar lead en el CRM con datos básicos (RUT, contacto, rubro, tamaño)",
-      "Clasificar empresa: Constructora, Inmobiliaria, Proveedora, Especialidades, Industrial, Constructora/Inmobiliaria",
-      "Marcar si es Grande o Pyme",
+      "Identificar empresas potenciales (socios CChC, eventos, referidos, sedes regionales)",
+      "Registrar lead en CRM: RUT, contacto, rubro, tamaño (Grande/Pyme)",
+      "Clasificar empresa (6 rubros × 2 tamaños = 12 tipos)",
       "Primera llamada/reunión de presentación del programa",
-      "Enviar material informativo (beneficios, costos, proceso)",
-      "Registrar notas de la conversación y nivel de interés"
+      "Enviar material informativo (beneficios, costos, proceso 10 meses)",
+      "Seguimiento sistemático al lead: llamadas, mails, reuniones",
+      "Resolver dudas sobre costos ($2M-$4M CLP según facturación)",
+      "Gestionar co-financiamiento si aplica",
+      "Registrar fecha último contacto (campo obligatorio)",
+      "Registrar notas de cada conversación y nivel de interés"
     ],
-    crm:["Estado del lead","Fuente de captación","Fecha primer contacto","Tipo empresa","Tamaño","Responsable CChC"],
-    link:"Alimenta → Módulo Empresa (creación perfil)", status:"pre"
+    crm:["Estado lead","Fuente captación","Fecha primer/último contacto","Tipo empresa","Tamaño","Responsable CChC","Nivel interés","Co-financiamiento"],
+    link:"No hay conexión directa aún. Al cerrar venta → trigger para Fase 2 (Gestión Administrativa)", status:"pre",
+    designNote:"Esta fase incluye toda la conversación comercial como un flujo continuo, no etapas separadas."
   },
   {
-    id:"negociacion", label:"Negociación", icon:"🤝", color:"#2D6A4F", light:"#B7E4C7",
-    description:"Cierre comercial y formalización",
+    id:"admin", label:"Gestión Admin.", icon:"📑", color:"#5D4037", light:"#EFEBE9",
+    description:"Contratos, OC, Factura y Pago",
     actions:[
-      "Seguimiento al lead (llamadas, mails, reuniones)",
-      "Resolver dudas sobre costos (varía según facturación: $2-4M CLP)",
-      "Gestionar co-financiamiento si aplica",
-      "Enviar propuesta formal / orden de compra",
-      "Confirmar inscripción y recibir pago",
-      "Actualizar estado del pipeline en CRM"
+      "Generar y enviar contrato a la empresa",
+      "Recibir y registrar Orden de Compra (OC)",
+      "Emitir factura según OC",
+      "Registrar pago recibido",
+      "Cada documento tiene su propio estado independiente",
+      "Alertas cuando un documento lleva más de X días en 'pendiente'"
     ],
-    crm:["Monto cotizado","Estado negociación","Fecha propuesta enviada","Fecha cierre esperada","Notas de objeciones"],
-    link:"Alimenta → CRM Pipeline + Facturación", status:"pre"
+    crm:["Contrato (estado/fecha/archivo)","OC (estado/número/monto)","Factura (estado/número/monto)","Pago (estado/fecha/comprobante)"],
+    link:"Al marcar pago_estado = completo → trigger para crear perfil en plataforma (Fase 3)", status:"pre",
+    designNote:"Módulo de seguimiento administrativo independiente. Cada documento se actualiza por separado. Vista tabla/Kanban con filtros por estado.",
+    adminDocs: [
+      {title:"Contrato", fields:"pendiente → enviado → firmado → rechazado"},
+      {title:"Orden de Compra", fields:"pendiente → recibida → rechazada"},
+      {title:"Factura", fields:"pendiente → emitida → pagada → anulada"},
+      {title:"Pago", fields:"pendiente → parcial → completo"}
+    ]
   },
   {
     id:"onboarding", label:"Onboarding", icon:"📋", color:"#40916C", light:"#95D5B2",
     description:"Alta en plataforma y asignación de asesor",
     actions:[
-      "Crear perfil de empresa en la plataforma (RUT + mail contacto)",
-      "Seleccionar cuestionario correcto (10 tipos según rubro/tamaño)",
+      "Crear perfil de empresa: RUT, contacto, sede CChC, comité principal, rubro, tamaño",
+      "Seleccionar cuestionario correcto (12 tipos según rubro/tamaño — basados en Familias de Criterios)",
       "Asignar asesor (Nexos) según disponibilidad y zona geográfica",
-      "Cargar documentos base: Manual Sello PRO, Manual verificadores, Herramientas",
-      "Notificar a Bitbang para agendar Kickoff",
-      "Verificar que la empresa acceda correctamente a la plataforma"
+      "Cargar documentos base: Manual Sello PRO, Manual verificadores, Herramientas por pilares",
+      "Notificar a Bitbang para coordinar Kickoff",
+      "Verificar acceso de la empresa a la plataforma"
     ],
-    crm:["Asesor asignado","Cuestionario seleccionado","Fecha alta plataforma","Credenciales enviadas"],
-    link:"Módulo Empresa (Home/Bienvenida) + Módulo Verificación", status:"en"
+    crm:["Asesor asignado","Cuestionario seleccionado","Sede CChC","Comité","Fecha alta","Credenciales enviadas"],
+    link:"Se crea perfil en Módulo Empresa ('CLARA'). Se activa timeline de etapas. Empresa ve bienvenida.", status:"en"
   },
   {
     id:"kickoff", label:"Kickoff", icon:"🚀", color:"#52B788", light:"#74C69D",
-    description:"Reunión inicial con empresa y asesor",
+    description:"Reunión inicial — CChC NO participa",
     actions:[
+      "⚠️ CChC NO participa en el Kickoff — es responsabilidad de Nexos + Bitbang",
       "Bitbang agenda reunión consultando agenda de Nexos",
-      "Coordinador CChC puede participar o delegar",
-      "Se presenta el proceso completo (10 meses)",
-      "Se definen expectativas y cronograma",
-      "Nexos marca etapa como 'Realizada' en plataforma"
+      "Bitbang llama a la empresa para coordinar fecha",
+      "Nexos realiza el Kickoff: presenta proceso, expectativas, cronograma",
+      "Nexos marca etapa como 'Realizada' en plataforma",
+      "CChC solo supervisa desde el CRM que se haya realizado"
     ],
     crm:["Fecha kickoff","Asistentes","Estado etapa","Notas reunión"],
-    link:"Módulo Empresa → Timeline de etapas (check ✓)", status:"en",
-    integration:"📧 Integración Outlook/Gmail para citas"
+    link:"Módulo Empresa → Timeline check ✓ en KICKOFF", status:"en",
+    integration:"📧 Cita automática Outlook/Gmail + mail recordatorio"
   },
   {
     id:"autoevaluacion", label:"Autoevaluación", icon:"📝", color:"#74C69D", light:"#B7E4C7",
-    description:"Empresa responde cuestionario inicial",
+    description:"Empresa responde cuestionario — Bitbang monitorea tiempos",
     actions:[
-      "Monitorear que la empresa complete la autoevaluación en tiempo",
-      "Enviar recordatorios si hay atraso",
-      "Revisar que el cuestionario asignado sea el correcto",
-      "La plataforma marca automáticamente como 'Realizada' al completarse"
+      "⚠️ Bitbang monitorea que la empresa conteste a tiempo (actuando a nombre de CChC)",
+      "Bitbang envía recordatorios si hay atraso",
+      "Bitbang escala a CChC si empresa no responde tras múltiples intentos",
+      "CChC supervisa avance general desde el CRM",
+      "CChC verifica que el cuestionario asignado sea correcto",
+      "Plataforma marca automáticamente como 'Realizada' al completarse 100%"
     ],
     crm:["Fecha inicio","Fecha completada","% avance","Alertas de atraso"],
-    link:"Módulo Empresa → Autoevaluación (formulario con estrellas por criterio) → 'CLARA'", status:"en"
+    link:"Módulo Empresa ('CLARA') → Formulario estrellas por criterio. Estructura de Familias: ~58 criterios en 4 ámbitos, con variantes por tipo empresa. Asesor podrá calibrar después.", status:"en"
   },
   {
-    id:"diagnostico", label:"Diagnóstico + Terreno", icon:"🔍", color:"#95D5B2", light:"#D8F3DC",
-    description:"Visitas a terreno, diagnóstico y plan de desarrollo",
+    id:"terreno", label:"Visitas a Terreno", icon:"🏗️", color:"#81C784", light:"#C8E6C9",
+    description:"Visitas presenciales — ETAPA SEPARADA del diagnóstico",
     actions:[
-      "Monitorear coordinación de terrenos entre Nexos y empresa",
-      "Verificar que Nexos suba fotos y registros de visitas",
-      "Revisar diagnóstico y plan de desarrollo elaborado por Nexos",
-      "Supervisar que el plan incluya: notas, estándar, verificadores, comentarios, estado, nota provisional",
-      "Asegurar que Nexos pueda calibrar/modificar respuestas de autoevaluación"
+      "Nexos coordina visita a terreno directamente con la empresa",
+      "Nexos realiza visita presencial",
+      "Nexos sube fotos y registros de la visita",
+      "Plataforma muestra terrenos: Proyecto, Dirección, Ciudad, Fecha",
+      "Nexos marca etapa como 'Realizada'",
+      "CChC monitorea que se realicen las visitas en tiempo"
     ],
-    crm:["Terrenos agendados","Fotos subidas","Diagnóstico entregado","Plan aprobado","Fecha entrega diagnóstico"],
-    link:"Módulo Empresa → Visitas a Terreno + Diagnóstico → Módulo Verificación ('NORMAN')", status:"en",
-    integration:"📧 Mail recordatorio automático de reuniones"
+    crm:["Terrenos agendados","Fotos subidas","Documentos terreno","Estado etapa"],
+    link:"Módulo Empresa ('CLARA') → Visitas a Terreno + Módulo 'NORMAN' (verificación en terreno)", status:"en",
+    integration:"📧 Mail recordatorio + 📅 Cita Outlook/Gmail",
+    designNote:"El terreno es una etapa SEPARADA del diagnóstico. Primero se observa, luego se diagnostica."
+  },
+  {
+    id:"diagnostico", label:"Diagnóstico + Plan", icon:"🔍", color:"#66BB6A", light:"#A5D6A7",
+    description:"Diagnóstico y Plan de Desarrollo — juntos, post-terreno",
+    actions:[
+      "Nexos elabora diagnóstico basándose en autoevaluación + observaciones de terreno",
+      "Nexos elabora plan de desarrollo junto con el diagnóstico",
+      "Nexos puede calibrar/modificar respuestas de autoevaluación",
+      "Nexos sube documentos a plataforma",
+      "Nexos realiza reunión de entrega a la empresa",
+      "Nexos marca etapa como 'Realizada'",
+      "Plan incluye: notas, estándar, verificadores, comentarios, estado, nota provisional"
+    ],
+    crm:["Diagnóstico entregado","Plan creado","Fecha reunión","Notas calibración"],
+    link:"Módulo Empresa ('CLARA') → Diagnóstico y Plan + Módulo 'NORMAN' (verificación documental)", status:"en",
+    designNote:"Diagnóstico y plan van JUNTOS. El diagnóstico informa el plan. Separados del terreno."
   },
   {
     id:"seguimientos", label:"Seguimientos", icon:"📊", color:"#B7E4C7", light:"#D8F3DC",
-    description:"Reuniones de seguimiento (mínimo 3, flexible)",
+    description:"Reuniones individuales (mín. 3, flexible) — registros separados",
     actions:[
-      "Monitorear avance general de la empresa en dashboard",
-      "Verificar que Nexos realice los seguimientos programados",
-      "Revisar comentarios y estado de criterios",
-      "Alertas si hay empresas estancadas o con problemas",
-      "Flexibilidad: pueden ser más de 3 seguimientos",
-      "Empresa puede subir verificadores durante esta etapa"
+      "Nexos realiza reuniones según programación",
+      "Cada seguimiento es un REGISTRO SEPARADO con: fecha, participantes, comentarios, acuerdos, estado criterios, nota provisional",
+      "Nexos marca cada seguimiento como 'Realizado'",
+      "Empresa puede ver comentarios y responder",
+      "Empresa puede subir verificadores durante esta etapa",
+      "CChC monitorea avance en dashboard",
+      "Alertas automáticas si empresa estancada"
     ],
-    crm:["# seguimientos realizados","Próximo seguimiento","Nota actual","Tendencia avance","Alertas"],
-    link:"Módulo Empresa → Seguimientos + Plan de Desarrollo (comentarios por fecha)", status:"en",
-    integration:"📧 Mail recordatorio + 📊 Dashboard de avance por criterio/estrella"
+    crm:["# seguimientos","Último seguimiento","Nota actual","Tendencia avance","Alertas"],
+    link:"Módulo Empresa ('CLARA') → Lista de seguimientos clickeables con detalle individual", status:"en",
+    integration:"📧 Mail recordatorio + 📊 Dashboard avance + 🔔 Alertas automáticas",
+    designNote:"Cada seguimiento es un registro independiente (no una sola etapa). Pueden ser más de 3. Campos por seguimiento: fecha, participantes, comentarios, acuerdos, estado criterios, nota."
   },
   {
     id:"evaluacion", label:"Evaluación Final", icon:"⭐", color:"#52B788", light:"#95D5B2",
-    description:"Evaluación final y comparativa con diagnóstico",
+    description:"Evaluación final + comparativa con diagnóstico",
     actions:[
       "Verificar que empresa haya subido todos los verificadores",
-      "Confirmar que Nexos responda evaluación final en plataforma",
-      "Revisar resultados comparativos: Diagnóstico vs Evaluación Final por criterio",
-      "Aprobar o solicitar ajustes",
-      "Verificación documental y en terreno (Módulo 'NORMAN')"
+      "Nexos responde evaluación final en plataforma (mismo formato autoevaluación)",
+      "Plataforma genera comparativa automática: Diagnóstico vs Evaluación Final por criterio",
+      "Resultado con apertura por pilares y nota final (ej: 4.2 estrellas)",
+      "CChC aprueba o solicita ajustes",
+      "Verificación documental y en terreno vía Módulo 'NORMAN'"
     ],
-    crm:["Verificadores completos","Nota evaluación final","Comparativa D vs EF","Estado aprobación"],
-    link:"Módulo Empresa → Evaluación Final + Módulo Verificación/Auditoría ('NORMAN')", status:"en"
+    crm:["Verificadores completos","Nota final","Comparativa D vs EF","Estado aprobación"],
+    link:"Módulo Empresa ('CLARA') → Evaluación + Comparativa + Módulo 'NORMAN' (aprobación verificadores)", status:"en"
   },
   {
     id:"cierre", label:"Hoja de Ruta + Reconocimiento", icon:"🏆", color:"#1B4332", light:"#40916C",
-    description:"Entrega de resultados y certificación",
+    description:"Cierre del proceso y entrega de certificación",
     actions:[
       "Nexos carga Hoja de Ruta en perfil de empresa",
-      "Bitbang coordina reunión de Reconocimiento (ve agendas de Nexos y CChC)",
+      "Bitbang coordina reunión viendo agendas de Nexos Y CChC",
       "CChC participa en reunión de entrega de resultados",
-      "Se entrega el reconocimiento Sello PRO",
+      "Se entrega reconocimiento Sello PRO",
       "Nexos marca etapa final como 'Realizada'",
-      "Actualizar CRM: empresa certificada → pasa a pool de renovaciones"
+      "CRM: empresa pasa a 'Certificada' → pool de renovaciones",
+      "Se inicia ciclo de vida: Auditorías anuales + Renovación cada 2 años"
     ],
     crm:["Fecha reconocimiento","Nivel alcanzado","Nota final","Próxima renovación","Estado certificación"],
-    link:"Módulo Empresa → Reconocimiento + Reportes (Dashboard's, avance, tiempo, costo)", status:"en",
-    integration:"📧 Coordinación multi-agenda (CChC + Nexos + Empresa)"
+    link:"Módulo Empresa ('CLARA') → Timeline completo + Reportes finales. CRM → 'Empresas certificadas'", status:"en",
+    integration:"📅 Coordinación multi-agenda (CChC + Nexos + Empresa) + 📧 Mail de cierre"
   }
 ];
 
 let selectedId = null;
 
-// Build timeline
 function buildTimeline() {
   const tl = document.getElementById('timeline');
   tl.innerHTML = '';
   phases.forEach(p => {
     const el = document.createElement('div');
     el.className = 'phase-dot' + (selectedId === p.id ? ' selected' : '');
-    el.onclick = () => selectPhase(p.id);
+    el.onclick = () => { selectedId = selectedId === p.id ? null : p.id; buildTimeline(); renderDetail(); };
     const bg = selectedId === p.id ? p.color : p.light;
+    const shadow = selectedId === p.id ? 'box-shadow:0 0 0 4px '+p.light+';' : '';
     el.innerHTML = `
-      <div class="dot-circle" style="background:${bg};border-color:${p.color};${selectedId===p.id?'box-shadow:0 0 0 4px '+p.light+';':''}">
-        ${p.icon}
-      </div>
+      <div class="dot-circle" style="background:${bg};border-color:${p.color};${shadow}">${p.icon}</div>
       <div class="dot-label" style="color:${p.color};">${p.label}</div>
       <div class="dot-status ${p.status}">${p.status==='pre'?'Pre-plataforma':'En plataforma'}</div>
     `;
@@ -410,126 +542,162 @@ function buildTimeline() {
   });
 }
 
-function selectPhase(id) {
-  selectedId = selectedId === id ? null : id;
-  buildTimeline();
-  renderDetail();
-}
-
 function renderDetail() {
-  const container = document.getElementById('detail-container');
-  if (!selectedId) {
-    container.innerHTML = '<div class="empty-hint">☝️ Haz clic en una etapa del timeline para ver el detalle de acciones y campos CRM</div>';
-    return;
-  }
+  const c = document.getElementById('detail-container');
+  if (!selectedId) { c.innerHTML = '<div class="empty-hint">☝️ Haz clic en una etapa del timeline para ver el detalle</div>'; return; }
   const p = phases.find(x => x.id === selectedId);
-  let actionsHtml = p.actions.map(a => `<div class="action-item"><span class="action-bullet" style="color:${p.color}">●</span>${a}</div>`).join('');
+  let acts = p.actions.map(a => {
+    const isWarning = a.startsWith('⚠️');
+    return `<div class="action-item" style="${isWarning?'color:#E65100;font-weight:500;':''}"><span class="action-bullet" style="color:${p.color}">●</span>${a}</div>`;
+  }).join('');
   let intHtml = p.integration ? `<div class="integration-note">${p.integration}</div>` : '';
-  let tagsHtml = p.crm.map(c => `<span class="crm-tag" style="background:${p.light};color:${p.color};">${c}</span>`).join('');
-
-  container.innerHTML = `
+  let designHtml = p.designNote ? `<div class="design-note">💡 ${p.designNote}</div>` : '';
+  let adminHtml = '';
+  if (p.adminDocs) {
+    adminHtml = '<div class="admin-grid">' + p.adminDocs.map(d => `<div class="admin-card"><div class="doc-title">${d.title}</div><div class="doc-fields">${d.fields}</div></div>`).join('') + '</div>';
+  }
+  let tags = p.crm.map(c => `<span class="crm-tag" style="background:${p.light};color:${p.color};">${c}</span>`).join('');
+  c.innerHTML = `
     <div class="detail-panel" style="border-color:${p.color};">
-      <div class="detail-header" style="background:${p.color};">
-        <span class="icon">${p.icon}</span>
-        <div><h2>${p.label}</h2><p>${p.description}</p></div>
-      </div>
+      <div class="detail-header" style="background:${p.color};"><span class="icon">${p.icon}</span><div><h2>${p.label}</h2><p>${p.description}</p></div></div>
       <div class="detail-grid">
         <div class="detail-left">
           <div class="detail-section-title" style="color:${p.color};">👤 Acciones del Coordinador CChC</div>
-          ${actionsHtml}
-          ${intHtml}
+          ${acts}${intHtml}${designHtml}${adminHtml}
         </div>
         <div class="detail-right">
           <div class="detail-section-title" style="color:${p.color};">💾 Campos CRM</div>
-          <div class="crm-tags">${tagsHtml}</div>
+          <div class="crm-tags">${tags}</div>
           <div class="detail-section-title" style="color:${p.color};">🔗 Conexión con Plataforma</div>
           <div class="platform-link">${p.link}</div>
         </div>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
-// CRM Tab
 function buildCRM() {
   const views = [
-    { icon:"📈", label:"Pipeline", desc:"Vista Kanban del funnel comercial", cols:["Lead Nuevo","Contactado","Propuesta Enviada","Negociando","Cerrado Ganado","Cerrado Perdido"] },
-    { icon:"🏢", label:"Cartera Activa", desc:"Todas las empresas en proceso activo", cols:["Empresa","Asesor","Etapa Actual","% Avance","Próxima Acción","Alerta"] },
-    { icon:"🔔", label:"Alertas", desc:"Empresas con atrasos o problemas", cols:["Empresa","Etapa Bloqueada","Días de Atraso","Motivo","Acción Requerida"] },
-    { icon:"📊", label:"Reportes", desc:"KPIs del programa", cols:["Empresas activas","Tasa conversión","Tiempo promedio","NPS","Empresas por asesor","Ingresos"] }
+    { icon:"📈", label:"Pipeline Comercial", desc:"Vista Kanban del funnel de ventas", cols:["Lead Nuevo","Contactado","Propuesta Enviada","Negociando","Cerrado Ganado","Cerrado Perdido"] },
+    { icon:"📑", label:"Gestión Administrativa", desc:"Estado de documentos por empresa", cols:["Empresa","Contrato","OC","Factura","Pago","Días pendiente","Alerta"] },
+    { icon:"🏢", label:"Cartera Activa", desc:"Empresas en proceso de certificación", cols:["Empresa","Asesor","Etapa","% Avance","Próxima Acción","Alerta","Días en etapa"] },
+    { icon:"🔔", label:"Alertas", desc:"Empresas con atrasos — visible para Bitbang", cols:["Empresa","Etapa Bloqueada","Días Atraso","Motivo","Acción Requerida","Responsable"] },
+    { icon:"📊", label:"Reportes / KPIs", desc:"Métricas del programa", cols:["Empresas activas","Tasa conversión","Tiempo promedio","Distribución por etapa","Por asesor","Ingresos"] },
+    { icon:"🔄", label:"Pool Renovaciones", desc:"Empresas certificadas por renovar", cols:["Empresa","Fecha certificación","Próxima auditoría","Fecha vencimiento","Estado renovación"] }
   ];
-  const grid = document.getElementById('crm-grid');
-  grid.innerHTML = views.map(v => `
-    <div class="crm-card">
-      <div class="crm-card-head">
-        <span class="ic">${v.icon}</span>
-        <div><h3>${v.label}</h3><p>${v.desc}</p></div>
-      </div>
-      <div class="crm-col-tags">${v.cols.map(c=>`<span class="crm-col-tag">${c}</span>`).join('')}</div>
-    </div>
-  `).join('');
+  document.getElementById('crm-grid').innerHTML = views.map(v => `
+    <div class="crm-card"><div class="crm-card-head"><span class="ic">${v.icon}</span><div><h3>${v.label}</h3><p>${v.desc}</p></div></div>
+    <div class="crm-col-tags">${v.cols.map(c=>`<span class="crm-col-tag">${c}</span>`).join('')}</div></div>`).join('');
 
   const flowData = [
-    {label:"Lead CRM",bg:"#FFF3E0",color:"#E65100",border:"#FFCC80"},
-    {label:"Negociación CRM",bg:"#FFF3E0",color:"#E65100",border:"#FFCC80"},
-    {label:"Onboarding CRM+Plataforma",bg:"#E8F5E9",color:"#2D6A4F",border:"#A5D6A7"},
-    {label:"Proceso en Plataforma",bg:"#1B4332",color:"white",border:"#1B4332"},
-    {label:"Monitoreo CRM",bg:"#E3F2FD",color:"#1565C0",border:"#90CAF9"},
-    {label:"Cierre CRM",bg:"#F3E5F5",color:"#7B1FA2",border:"#CE93D8"}
+    {l:"Lead CRM",bg:"#FFF3E0",c:"#E65100",b:"#FFCC80"},
+    {l:"Gestión Admin.",bg:"#FFFDE7",c:"#F57F17",b:"#FFE082"},
+    {l:"Onboarding",bg:"#E8F5E9",c:"#2D6A4F",b:"#A5D6A7"},
+    {l:"Proceso Plataforma",bg:"#1B4332",c:"white",b:"#1B4332"},
+    {l:"Monitoreo CRM",bg:"#E3F2FD",c:"#1565C0",b:"#90CAF9"},
+    {l:"Cierre → Renovación",bg:"#F3E5F5",c:"#7B1FA2",b:"#CE93D8"}
   ];
-  const fs = document.getElementById('flow-steps');
-  fs.innerHTML = flowData.map((s,i) => {
+  document.getElementById('flow-steps').innerHTML = flowData.map((s,i) => {
     let arrow = i < flowData.length-1 ? '<span class="flow-arrow">→</span>' : '';
-    return `<span class="flow-step" style="background:${s.bg};color:${s.color};border-color:${s.border};">${s.label}</span>${arrow}`;
+    return `<span class="flow-step" style="background:${s.bg};color:${s.c};border-color:${s.b};">${s.l}</span>${arrow}`;
   }).join('');
 }
 
-// Integration Tab
 function buildIntegration() {
-  const crmItems = ["Pipeline comercial","Gestión de leads","Asignación de asesores","Dashboard general","Alertas y seguimiento","Reportes del programa","Gestión de perfiles","Carga de cuestionarios","Carga de documentos base","Facturación"];
+  const crmItems = ["Pipeline comercial","Gestión de leads","Gestión administrativa (Contrato-OC-Factura-Pago)","Asignación de asesores","Dashboard general","Alertas y seguimiento","Reportes del programa","Gestión de perfiles","Carga de cuestionarios (12 tipos)","Carga de documentos base","Facturación","Pool de renovaciones"];
   document.getElementById('crm-items').innerHTML = crmItems.map(i=>`<div class="mod-item"><span style="color:#E65100;">▸</span>${i}</div>`).join('');
 
-  const claraModules = [
+  const clara = [
     {t:"Home",d:"Bienvenida (1ª vez) / Dashboard gestión"},
-    {t:"Autoevaluación",d:"Formulario estrellas + medios verificación + metodología nota"},
-    {t:"Visitas Terreno",d:"Registro, fotos, verificación asesor, calibración"},
-    {t:"Diagnóstico",d:"Notas, estándar, verificadores, comentarios, estado"},
-    {t:"Plan de Desarrollo",d:"Brechas priorizadas, actividades, Gantt, seguimiento"},
-    {t:"Seguimientos",d:"Comentarios por fecha, estado criterios, nota provisional"},
+    {t:"Autoevaluación",d:"Formulario estrellas + verificación + metodología nota"},
+    {t:"Visitas Terreno",d:"Registro, fotos, documentos (ETAPA SEPARADA)"},
+    {t:"Diagnóstico + Plan",d:"Notas, estándar, verificadores, comentarios, estado (POST-TERRENO)"},
+    {t:"Seguimientos",d:"Registros individuales: fecha, participantes, acuerdos, estado"},
     {t:"Evaluación Final",d:"Cuestionario + verificadores + comparativa"},
     {t:"Hoja de Ruta",d:"Carga por asesor"},
     {t:"Pre-verificación",d:"Con consultor externo"},
+    {t:"Herramientas",d:"Por pilares, descargables"},
     {t:"Reportes",d:"Dashboards, avance, tiempo, costo"}
   ];
-  document.getElementById('clara-grid').innerHTML = claraModules.map(m=>`<div class="clara-card"><div class="title">${m.t}</div><div class="desc">${m.d}</div></div>`).join('');
+  document.getElementById('clara-grid').innerHTML = clara.map(m=>`<div class="clara-card"><div class="title">${m.t}</div><div class="desc">${m.d}</div></div>`).join('');
 
-  const normanItems = ["Verificar medios de verificación vs estándar","Revisión documental","Revisión en terreno","Aprobación/rechazo de verificadores","Resultados comparativos"];
-  document.getElementById('norman-items').innerHTML = normanItems.map(i=>`<div class="mod-item"><span style="color:#1976D2;">▸</span>${i}</div>`).join('');
+  const norman = ["Verificar medios vs estándar","Revisión documental","Revisión en terreno","Aprobación/rechazo verificadores","Resultados comparativos","Pre-verificación (consultor externo)"];
+  document.getElementById('norman-items').innerHTML = norman.map(i=>`<div class="mod-item"><span style="color:#1976D2;">▸</span>${i}</div>`).join('');
 
-  const integrations = [
-    {icon:"📧",t:"Email (Outlook/Gmail)",d:"Citas automáticas, recordatorios de reuniones, notificaciones de etapas"},
+  const ints = [
+    {icon:"📧",t:"Email (Outlook/Gmail)",d:"Citas automáticas, recordatorios, notificaciones de etapas completadas"},
     {icon:"📅",t:"Agenda Compartida",d:"Bitbang ve agendas de Nexos y CChC para coordinar reuniones"},
-    {icon:"🔔",t:"Notificaciones",d:"Alertas de atraso, empresas estancadas, etapas pendientes, verificadores faltantes"},
-    {icon:"📊",t:"Dashboard en Tiempo Real",d:"Avance por criterio, nota por estrella, comparativa diagnóstico vs evaluación"},
-    {icon:"🔐",t:"Perfiles y Permisos",d:"CChC (admin), Asesores (gestión), Empresas (operación). Multi-perfil por RUT+mail"},
-    {icon:"📄",t:"Gestión Documental",d:"Cuestionarios (10 tipos), Manual Sello PRO, Manual verificadores, Herramientas por pilar"}
+    {icon:"🔔",t:"Notificaciones",d:"Atrasos, etapas pendientes, verificadores faltantes, comentarios nuevos"},
+    {icon:"📊",t:"Dashboard Tiempo Real",d:"Avance por criterio/estrella, comparativa diagnóstico vs actual"},
+    {icon:"🔐",t:"Perfiles y Permisos",d:"CChC (admin), Bitbang (operativo), Asesores (gestión), Empresas (operación)"},
+    {icon:"📄",t:"Gestión Documental",d:"12 tipos cuestionarios, Manual Sello PRO, Manual verificadores, Herramientas"},
+    {icon:"🔗",t:"API REST + Webhooks",d:"Endpoints read-only para proyectos internos CChC (dashboards, benchmarking). Auth por API key. Doc OpenAPI/Swagger"},
+    {icon:"💾",t:"Migración Datos",d:"+350 empresas históricas a migrar desde hojas de cálculo"}
   ];
-  document.getElementById('int-grid').innerHTML = integrations.map(i=>`<div class="int-card"><div class="ic">${i.icon}</div><div class="ttl">${i.t}</div><div class="dsc">${i.d}</div></div>`).join('');
+  document.getElementById('int-grid').innerHTML = ints.map(i=>`<div class="int-card"><div class="ic">${i.icon}</div><div class="ttl">${i.t}</div><div class="dsc">${i.d}</div></div>`).join('');
 }
 
-function switchTab(id) {
-  document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
-  document.querySelectorAll('.tab-btn').forEach(b => { if(b.textContent.toLowerCase().includes(id==='journey'?'journey':id==='crm'?'crm':'integración')) b.classList.add('active'); });
-  event.target.classList.add('active');
+function buildLifecycle() {
+  const states = [
+    {emoji:"⏳",name:"EN PROCESO",desc:"Empresa en certificación (~10 meses)",bg:"#E3F2FD",color:"#1565C0",border:"#90CAF9"},
+    {emoji:"✅",name:"LOGRADO",desc:"Certificada. Auditorías anuales.",bg:"#E8F5E9",color:"#2E7D32",border:"#A5D6A7"},
+    {emoji:"🔄",name:"RENOVACIÓN",desc:"En proceso de renovar (cada 2 años, 4-7 meses)",bg:"#FFF3E0",color:"#E65100",border:"#FFCC80"},
+    {emoji:"❌",name:"NO LOGRADO",desc:"No completó proceso o no renovó a tiempo",bg:"#FDECEA",color:"#C62828",border:"#EF9A9A"}
+  ];
+  document.getElementById('state-cards').innerHTML = states.map(s => `
+    <div class="state-card" style="background:${s.bg};border-color:${s.border};">
+      <div class="emoji">${s.emoji}</div>
+      <div class="name" style="color:${s.color};">${s.name}</div>
+      <div class="desc" style="color:${s.color};">${s.desc}</div>
+    </div>`).join('');
+
+  const tlSteps = [
+    {l:"Implementación (~10m)",bg:"#E3F2FD",c:"#1565C0",b:"#90CAF9"},
+    {l:"Verificación 0",bg:"#E8F5E9",c:"#2E7D32",b:"#A5D6A7"},
+    {l:"⭐ SELLO",bg:"#1B4332",c:"white",b:"#1B4332"},
+    {l:"Auditoría Año 1",bg:"#F0FFF4",c:"#2D6A4F",b:"#B7E4C7"},
+    {l:"Auditoría Año 2",bg:"#F0FFF4",c:"#2D6A4F",b:"#B7E4C7"},
+    {l:"¿Renovar?",bg:"#FFF3E0",c:"#E65100",b:"#FFCC80"},
+    {l:"Renovación (4-7m)",bg:"#FFF3E0",c:"#E65100",b:"#FFCC80"},
+    {l:"⭐ SELLO renovado",bg:"#1B4332",c:"white",b:"#1B4332"},
+    {l:"Auditoría Año 3",bg:"#F0FFF4",c:"#2D6A4F",b:"#B7E4C7"},
+    {l:"...",bg:"#F5F5F5",c:"#718096",b:"#E0E0E0"}
+  ];
+  document.getElementById('lifecycle-tl').innerHTML = tlSteps.map((s,i) => {
+    let arrow = i < tlSteps.length-1 ? '<span class="flow-arrow">→</span>' : '';
+    return `<span class="lt-step" style="background:${s.bg};color:${s.c};border-color:${s.b};">${s.l}</span>${arrow}`;
+  }).join('');
+
+  const stateFlow = [
+    {l:"Lead",bg:"#FFF3E0",c:"#E65100",b:"#FFCC80"},
+    {l:"Admin",bg:"#FFFDE7",c:"#F57F17",b:"#FFE082"},
+    {l:"EN PROCESO",bg:"#E3F2FD",c:"#1565C0",b:"#90CAF9"},
+    {l:"LOGRADO ⭐",bg:"#E8F5E9",c:"#2E7D32",b:"#A5D6A7"},
+    {l:"Auditorías",bg:"#F0FFF4",c:"#2D6A4F",b:"#B7E4C7"},
+    {l:"Vence",bg:"#FFF3E0",c:"#E65100",b:"#FFCC80"},
+    {l:"RENOVACIÓN",bg:"#FFF3E0",c:"#E65100",b:"#FFCC80"},
+    {l:"LOGRADO ⭐",bg:"#E8F5E9",c:"#2E7D32",b:"#A5D6A7"}
+  ];
+  document.getElementById('state-flow').innerHTML = stateFlow.map((s,i) => {
+    let arrow = i < stateFlow.length-1 ? '<span class="flow-arrow">→</span>' : '';
+    return `<span class="lt-step" style="background:${s.bg};color:${s.c};border-color:${s.b};">${s.l}</span>${arrow}`;
+  }).join('');
 }
 
-// Init
+// Tab switching
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    const tabId = this.dataset.tab;
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tabId).classList.add('active');
+    this.classList.add('active');
+  });
+});
+
 buildTimeline();
 buildCRM();
 buildIntegration();
+buildLifecycle();
 </script>
-
 </body>
 </html>
